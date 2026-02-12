@@ -117,6 +117,7 @@ export default function ValentineProposal() {
 
     setTouchStartX(null);
   };
+
   const navigateToSection = (nextSection) => {
     if (nextSection === currentSection) return;
     setCurrentSection(nextSection);
@@ -182,7 +183,7 @@ export default function ValentineProposal() {
       {/* Background couple photo with overlay */}
       <div 
         className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-25 z-0"
-        style={{ backgroundImage: '/background.jpg'}}
+        style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")' }}
       />
       <div className="fixed inset-0 bg-gradient-to-br from-pink-200/50 via-rose-100/50 to-red-100/50 z-0" />
       
@@ -245,8 +246,8 @@ export default function ValentineProposal() {
               left: `${conf.x}%`,
               top: `${conf.y}%`,
               animation: `explode 2s ease-out forwards`,
-              '--target-x': `${conf.targetX}%`,
-              '--target-y': `${conf.targetY}%`
+              ['--target-x' as any]: `${conf.targetX}%`,
+              ['--target-y' as any]: `${conf.targetY}%`
             }}
           />
         ))}
@@ -410,7 +411,6 @@ export default function ValentineProposal() {
               ))}
             </div>
 
-
             <p className="text-pink-700 font-semibold text-lg mb-8 text-center">
               Swipe for next photo
             </p>
@@ -438,7 +438,6 @@ export default function ValentineProposal() {
           </div>
         )}
 
-
         {currentSection === 2 && (
           <div className="min-h-screen py-12 flex items-center justify-center">
             <div className="w-full max-w-4xl">
@@ -463,18 +462,18 @@ export default function ValentineProposal() {
                     From the first moment I saw you, something shifted in me. You walked in like you owned the moment — calm, confident, unforgettable. Your style, your vibe, your energy… the way you carry yourself with beauty and quiet power — it stays with me.
                   </p>
                   <p>
-                    You don’t just love me. You make me better.<br />
+                    You don't just love me. You make me better.<br />
                     You inspire me more than you probably realize.<br />
-                    You push me, motivate me, even “pressure” me when I get too comfortable — and I call it gun-point love 😅 — because behind it all, you’re shaping me into a stronger man. A better man.
+                    You push me, motivate me, even "pressure" me when I get too comfortable — and I call it gun-point love 😅 — because behind it all, you're shaping me into a stronger man. A better man.
                   </p>
                   <p>
-                    You’ve changed me in ways I didn’t expect. You’ve shaped me, grounded me, and grown me. You’re not just my girlfriend — you’re my best friend, my peace, and someone I genuinely see a future with.
+                    You've changed me in ways I didn't expect. You've shaped me, grounded me, and grown me. You're not just my girlfriend — you're my best friend, my peace, and someone I genuinely see a future with.
                   </p>
                   <p>
                     If I had to choose in every lifetime, in every universe, under any pressure — it would still be you. Every single time.
                   </p>
                   <p>
-                    I don’t just want moments with you.<br />
+                    I don't just want moments with you.<br />
                     I want mornings, challenges, success, laughter, silence, growth — a whole life together.
                   </p>
                   <p>
@@ -500,6 +499,7 @@ export default function ValentineProposal() {
             </div>
           </div>
         )}
+
         {currentSection === 3 && (
           <div className="min-h-screen flex items-center justify-center">
             <div className="text-center space-y-8 max-w-3xl">
