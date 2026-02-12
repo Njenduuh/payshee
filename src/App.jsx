@@ -160,22 +160,20 @@ export default function ValentineProposal() {
 
   const handleYes = () => {
     setShowYesMoment(true);
-    const bigConfetti = Array.from({ length: 150 }, (_, i) => ({
+    const bigConfetti = Array.from({ length: 200 }, (_, i) => ({
       id: Date.now() + i,
-      x: 50 + (Math.random() - 0.5) * 20,
-      y: 50 + (Math.random() - 0.5) * 20,
+      x: 50 + (Math.random() - 0.5) * 30,
+      y: 50 + (Math.random() - 0.5) * 30,
       targetX: Math.random() * 100,
       targetY: Math.random() * 100,
-      color: ['#ec4899', '#f43f5e', '#be123c', '#fb7185', '#ff1493'][Math.floor(Math.random() * 5)]
+      color: ['#ec4899', '#f43f5e', '#be123c', '#fb7185', '#ff1493', '#ff69b4'][Math.floor(Math.random() * 6)],
+      delay: Math.random() * 0.3
     }));
     setConfetti(bigConfetti);
     
     setTimeout(() => {
       navigateToSection(4);
-      setConfetti([]);
-      setShowMergeAnimation(false);
-      setShowYesMoment(false);
-    }, 1600);
+    }, 2500);
   };
 
   return (
@@ -183,7 +181,7 @@ export default function ValentineProposal() {
       {/* Background couple photo with overlay */}
       <div 
         className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-25 z-0"
-        style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")' }}
+        style={{ backgroundImage: '/background.jpg'}}
       />
       <div className="fixed inset-0 bg-gradient-to-br from-pink-200/50 via-rose-100/50 to-red-100/50 z-0" />
       
@@ -240,14 +238,15 @@ export default function ValentineProposal() {
           <Heart
             key={conf.id}
             className="absolute"
-            size={40}
+            size={50}
             fill={conf.color || '#ec4899'}
             style={{
               left: `${conf.x}%`,
               top: `${conf.y}%`,
-              animation: `explode 2s ease-out forwards`,
-              ['--target-x' as any]: `${conf.targetX}%`,
-              ['--target-y' as any]: `${conf.targetY}%`
+              animation: `explode 2.5s ease-out forwards`,
+              animationDelay: `${conf.delay}s`,
+              '--target-x': `${conf.targetX}%`,
+              '--target-y': `${conf.targetY}%`
             }}
           />
         ))}
@@ -285,12 +284,12 @@ export default function ValentineProposal() {
           }
         }
         @keyframes explode {
-          from {
+          0% {
             transform: translate(0, 0) scale(1) rotate(0deg);
             opacity: 1;
           }
-          to {
-            transform: translate(calc(var(--target-x) - 50%), calc(var(--target-y) - 50%)) scale(0.5) rotate(720deg);
+          100% {
+            transform: translate(calc(var(--target-x) - 50%), calc(var(--target-y) - 50%)) scale(0.8) rotate(720deg);
             opacity: 0;
           }
         }
@@ -323,6 +322,14 @@ export default function ValentineProposal() {
           }
           50% { 
             filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.8));
+          }
+        }
+        @keyframes pulse {
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.1);
           }
         }
       `}</style>
@@ -558,12 +565,17 @@ export default function ValentineProposal() {
                 )}
 
                 {showYesMoment && (
-                  <p className="mt-6 text-rose-600 font-bold text-2xl animate-pulse">
-                    She said YES! Celebrating our love... 💖✨
-                  </p>
+                  <div className="mt-8 space-y-4">
+                    <p className="text-rose-600 font-bold text-3xl animate-pulse" style={{ animation: 'pulse 1s ease-in-out infinite' }}>
+                      She said YES! 💖✨
+                    </p>
+                    <p className="text-pink-600 font-bold text-2xl">
+                      Thank you for saying YES, Payshee! 🎉
+                    </p>
+                  </div>
                 )}
 
-                {showMergeAnimation && (
+                {showMergeAnimation && !showYesMoment && (
                   <p className="mt-6 text-pink-600 font-bold text-2xl animate-pulse">
                     Wait for it... ✨
                   </p>
@@ -575,26 +587,57 @@ export default function ValentineProposal() {
 
         {currentSection === 4 && (
           <div className="min-h-screen flex items-center justify-center">
-            <div className="text-center space-y-12">
-              <button
-                onClick={() => navigateToSection(3)}
-                className="mb-4 px-6 py-3 bg-white/80 backdrop-blur text-pink-600 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all border-2 border-pink-200"
-              >
-                ← Back
-              </button>
-              <div className="text-8xl mb-8 animate-pulse">🥂✨💖</div>
-              <h2 className="text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-rose-600 to-red-600 mb-8" style={{ animation: 'shimmer 3s ease-in-out infinite', fontFamily: scriptFont }}>
-                YAAAY! 💕
-              </h2>
-              <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-12 shadow-2xl border-2 border-pink-200 max-w-3xl mx-auto">
-                <p className="text-4xl text-gray-800 font-bold mb-8">
-                  You just made me the happiest person alive, Payshee!
-                </p>
-                <p className="text-3xl text-gray-700 mb-8" style={{ fontFamily: scriptFont }}>
-                  Forever starts with us — and I choose you every single day. 💍❤️
-                </p>
-                <div className="pt-8">
-                  <Heart className="w-64 h-64 text-rose-500 mx-auto" fill="currentColor" style={{ animation: 'glow 1.5s ease-in-out infinite' }} />
+            <div className="text-center space-y-12 max-w-4xl">
+              <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 md:p-16 shadow-2xl border-2 border-pink-200">
+                <div className="text-8xl mb-8">💕</div>
+                
+                <h2 className="text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-rose-600 to-red-600 mb-8" style={{ animation: 'shimmer 3s ease-in-out infinite', fontFamily: scriptFont }}>
+                  Here's the Truth...
+                </h2>
+
+                <div className="bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 rounded-2xl border-2 border-pink-200 p-8 md:p-12 space-y-6 text-gray-800">
+                  <p className="text-5xl md:text-6xl font-bold text-rose-600 mb-6">
+                    Fuck Valentine's Day
+                  </p>
+                  
+                  <p className="text-2xl md:text-3xl font-semibold text-gray-700 leading-relaxed">
+                    I don't need a holiday to love you.
+                  </p>
+                  
+                  <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
+                    I don't love you because it's February 14th.<br />
+                    I love you on random Tuesdays.<br />
+                    On stressed Mondays.<br />
+                    On lazy Sundays.
+                  </p>
+                  
+                  <p className="text-2xl md:text-3xl font-bold text-pink-700">
+                    Every. Single. Day.
+                  </p>
+                  
+                  <div className="pt-6 border-t-2 border-pink-200">
+                    <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-4">
+                      This website isn't for Valentine's Day—<br />
+                      it's for <span className="font-bold text-rose-600">US</span>.
+                    </p>
+                    
+                    <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-rose-600 to-red-600">
+                      365 days a year, you're my Valentine.
+                    </p>
+                  </div>
+                  
+                  <div className="pt-8">
+                    <p className="text-3xl md:text-4xl font-bold text-gray-800 mb-4" style={{ fontFamily: scriptFont }}>
+                      I love you, Payshee.
+                    </p>
+                    <p className="text-2xl md:text-3xl font-semibold text-pink-600" style={{ fontFamily: scriptFont }}>
+                      Always. Forever. 💕
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-10">
+                  <Heart className="w-48 h-48 md:w-64 md:h-64 text-rose-500 mx-auto" fill="currentColor" style={{ animation: 'glow 1.5s ease-in-out infinite' }} />
                 </div>
               </div>
             </div>
