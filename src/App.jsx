@@ -608,7 +608,7 @@ export default function ValentineProposal() {
                     I don't love you because it's February 14th.<br />
                     I love you on random Tuesdays.<br />
                     On stressed Mondays.<br />
-                    On lazy Sundays.
+                    On lazy Sundays. (jeden tag). 
                   </p>
                   
                   <p className="text-2xl md:text-3xl font-bold text-pink-700">
@@ -618,7 +618,7 @@ export default function ValentineProposal() {
                   <div className="pt-6 border-t-2 border-pink-200">
                     <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-4">
                       This website isn't for Valentine's Day—<br />
-                      it's for <span className="font-bold text-rose-600">US</span>.
+                      it's for <span className="font-bold text-rose-600">YOU</span>.
                     </p>
                     
                     <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-rose-600 to-red-600">
@@ -646,4 +646,4 @@ export default function ValentineProposal() {
       </div>
     </div>
   );
-}
+}s
